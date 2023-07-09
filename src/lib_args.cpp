@@ -1,7 +1,6 @@
 #include "lib_args.hpp"  // lib_args::ArgParser
 #include <algorithm>     // std::find
 #include <cstdlib>       // EXIT_SUCCESS
-#include <cstdlib>       // std::exit
 #include <iostream>      // std::cout
 #include <stdexcept>     // std::runtime_error
 #include <string>        // std::string
