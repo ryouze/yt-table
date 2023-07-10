@@ -87,11 +87,6 @@ class HTMLFile : public AbstractFile {
      * @brief Map containing YouTube subscriptions. Key = `<td>` tag containing link. Value = short description of the channel.
      */
     std::map<std::string, std::string> subscriptions_;
-
-    /**
-     * @brief This will become true if any changes were made to `this->subscriptions_`.
-     */
-    bool is_subscriptions_changed_ = false;
 };
 
 }  // namespace lib_disk

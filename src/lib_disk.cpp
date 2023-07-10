@@ -202,8 +202,6 @@ void HTMLFile::add(const std::string &string_to_split)
     }
     this->subscriptions_.insert(
         {key, "        <td>" + this->remove_whitespace(description) + "</td>"});
-    // allow writing to disk
-    this->is_subscriptions_changed_ = true;
 }
 
 void HTMLFile::remove(const std::string &name)
@@ -217,8 +215,6 @@ void HTMLFile::remove(const std::string &name)
         if (itr.first.find(name_trimmed) != std::string::npos) {
             // remove key from private map
             this->subscriptions_.erase(itr.first);
-            // allow writing to disk
-            this->is_subscriptions_changed_ = true;
             return;
         }
     }
@@ -227,10 +223,6 @@ void HTMLFile::remove(const std::string &name)
 
 void HTMLFile::write_to_disk() const
 {
-    // throw if no changes were made, this is clearly a mistake
-    if (!is_subscriptions_changed_) {
-        throw std::runtime_error("Cannot write to HTML file '" + this->filepath_ + "' to save results, because no changes were made. You probably haven't used the `this->add` or `this->remove` method yet.");
-    }
     // create backup of current filepath by renaming it to current filepath + ".bak" (old backup will be deleted)
     this->force_rename(this->filepath_ + ".bak");
     std::ofstream f(this->filepath_);
