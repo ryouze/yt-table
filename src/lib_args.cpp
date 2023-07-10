@@ -94,7 +94,7 @@ ArgParser::ArgParser(const int argc, char **argv)
             << "usage: " << arguments.at(0) << " [-h | --help] [-v | --verbose] [--output <PATH>] [--add <NAME;DESCRIPTION;LINK> | --remove <NAME>]\n\n"
             << "options:\n"
             << "  -h | --help                    print this help message\n"
-            << "  -v | --verbose                 display detailed processing informatio\n"
+            << "  -v | --verbose                 display detailed processing information\n"
             << "  --output <PATH>                path to output HTML table (" << this->output << ")\n"
             << "  --add <NAME;DESCRIPTION;LINK>  add channel to HTML table\n"
             << "  --remove <NAME>                remove channel from HTML table\n\n"
