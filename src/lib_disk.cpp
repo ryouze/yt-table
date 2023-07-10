@@ -113,7 +113,7 @@ namespace html_template {
 
 }  // namespace html_template
 
-HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set private variable `this->filepath_`
+HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set private variable `this->filepath_` (reference to `std::string`)
 {
     // prepare for read/write mode
     std::fstream f;

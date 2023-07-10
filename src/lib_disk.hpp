@@ -25,9 +25,9 @@ class AbstractFile {
 
   protected:
     /**
-     * @brief Filepath to the file.
+     * @brief Reference to path to the file.
      */
-    const std::string filepath_;
+    const std::string &filepath_;
 };
 
 /**
