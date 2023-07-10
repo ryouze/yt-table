@@ -160,11 +160,9 @@ HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set
 
 [[nodiscard]] std::string HTMLFile::get_status() const
 {
-    std::string res = "--- STATUS ---\n"
-                      "this->filepath='" +
-                      this->filepath_ + "'\n";
+    std::string res = "* this->filepath='" + this->filepath_ + "'\n";
     for (const auto &itr : this->subscriptions_) {
-        res += "Link: [" + itr.first + "]; Description: [" + itr.second + "].\n";
+        res += "* link={" + itr.first + "}; description={" + itr.second + "}\n";
     }
     return res;
 }

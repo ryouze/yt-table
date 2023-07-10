@@ -91,9 +91,10 @@ ArgParser::ArgParser(const int argc, char **argv)
     // OPTIONAL: print help and exit program
     if (helper.check_if_exists("-h", "--help")) {
         std::cout
-            << "usage: " << arguments.at(0) << " [-h | --help] [--output <PATH>] [--add <NAME;DESCRIPTION;LINK> | --remove <NAME>]\n\n"
+            << "usage: " << arguments.at(0) << " [-h | --help] [-v | --verbose] [--output <PATH>] [--add <NAME;DESCRIPTION;LINK> | --remove <NAME>]\n\n"
             << "options:\n"
             << "  -h | --help                    print this help message\n"
+            << "  -v | --verbose                 display detailed processing informatio\n"
             << "  --output <PATH>                path to output HTML table (" << this->output << ")\n"
             << "  --add <NAME;DESCRIPTION;LINK>  add channel to HTML table\n"
             << "  --remove <NAME>                remove channel from HTML table\n\n"
@@ -102,11 +103,15 @@ ArgParser::ArgParser(const int argc, char **argv)
         std::exit(EXIT_SUCCESS);
     }
     else {  // else statement for maximum clarity
+        // OPTIONAL: verbose flag
+        if (helper.check_if_exists("-v", "--verbose")) {
+            this->verbose = true;
+        }
         // OPTIONAL: custom filepath to subscriptions table
         if (helper.check_if_exists("--output")) {
             this->output = helper.get_keyword_pair("--output");
         }
-        // mandatory arguments begin below this line
+        // -- mandatory arguments begin below this line --
         // MANDATORY/ELSE: add channel to subscriptions table
         if (helper.check_if_exists("--add")) {
             this->mode = mode_t::ADD;

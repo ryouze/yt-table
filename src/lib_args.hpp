@@ -27,6 +27,11 @@ class ArgParser {
     ArgParser(const int argc, char **argv);
 
     /**
+     * @brief If true, print detailed processing information to stdout. Otherwise, maintain minimal output.
+     */
+    bool verbose = false;
+
+    /**
      * @brief Filepath to the pretty output HTML table containing YouTube subscriptions. Can be overwritten through a command line argument.
      */
     std::string output = "table.html";

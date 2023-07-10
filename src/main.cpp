@@ -23,6 +23,10 @@ int main(int argc, char **argv)
         default:
             throw std::runtime_error("No `--add` or `--remove` mode argument was provided. Use `--help` to display examples.");
         }
+        // if verbose mode is enabled (via `--verbose` flag), print all table rows
+        if (args.verbose) {
+            std::cout << file.get_status();  // trailing newline is included
+        }
         // save to disk
         file.write_to_disk();
     }
