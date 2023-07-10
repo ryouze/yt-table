@@ -178,7 +178,7 @@ void HTMLFile::add(const std::string &string_to_split)
             elements.push_back(buffer);
         }
         // we need exactly three items: `NAME;DESCRIPTION;LINK`
-        std::size_t elements_count = elements.size();
+        const std::size_t elements_count = elements.size();
         if (elements_count != 3) {
             throw std::runtime_error("Could not extract three items (`NAME;DESCRIPTION;LINK`) from string '" + string_to_split + "' (" + std::to_string(elements_count) + " items were extracted). Use `--help` to display examples.");
         }
@@ -208,9 +208,9 @@ void HTMLFile::remove(const std::string &name)
         throw std::runtime_error("Cannot remove channel '" + name + "', because the subscriptions list doesn't contain any channels.");
     }
     // remove whitespace, naively append the display part of the `<a>` tag because I had issues with regex
-    const std::string name_trimmed = '>' + this->remove_whitespace(name) + "</a></td>";
+    const std::string name_extended = '>' + this->remove_whitespace(name) + "</a></td>";
     for (const auto &itr : this->subscriptions_) {
-        if (itr.first.find(name_trimmed) != std::string::npos) {
+        if (itr.first.find(name_extended) != std::string::npos) {
             // remove key from private map
             this->subscriptions_.erase(itr.first);
             return;
