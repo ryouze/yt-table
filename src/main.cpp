@@ -1,7 +1,7 @@
 #include "lib_args.hpp"  // lib_args::ArgParser
 #include "lib_disk.hpp"  // lib_disk::HTMLFile
 #include <filesystem>    // [C++17 required] std::filesystem::filesystem_error
-#include <iostream>      // std::cout
+#include <iostream>      // std::cout, std::cerr
 #include <stdexcept>     // std::runtime_error
 
 int main(int argc, char **argv)
@@ -14,9 +14,11 @@ int main(int argc, char **argv)
         switch (args.mode) {
         case lib_args::mode_t::ADD:
             file.add(args.mode_arg_string);
+            std::cout << "Channel added to '" << args.output << "'.\n";
             break;
         case lib_args::mode_t::REMOVE:
             file.remove(args.mode_arg_string);
+            std::cout << "Channel removed from '" << args.output << "'.\n";
             break;
         default:
             throw std::runtime_error("No `--add` or `--remove` mode argument was provided. Use `--help` to display examples.");
