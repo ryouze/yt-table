@@ -48,5 +48,3 @@ add_executable(
 
 # Print build type to console, just in case.
 message(STATUS "${PROJECT_NAME}: Build type: ${CMAKE_BUILD_TYPE}.")
-
-
