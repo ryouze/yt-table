@@ -51,7 +51,7 @@ class HTMLFile : public AbstractFile {
 
     /**
      * @brief Add channel to subscriptions list. Use `this->write_to_disk()` to commit changes. If failed, throw.
-     * @param string_to_split Name of the channel, very short description of the channel, link to the channel , e.g., `Noriyaro;JP Drifting;https://www.youtube.com/@noriyaro/videos/`. This is case sensitive.
+     * @param string_to_split Name of the channel, very short description of the channel, link to the channel, e.g., `Noriyaro;JP Drifting;https://www.youtube.com/@noriyaro/videos/`. This is case sensitive.
      */
     void add(const std::string &string_to_split);
 
@@ -79,7 +79,7 @@ class HTMLFile : public AbstractFile {
      * @brief Remove leading and trailing whitespace from string. Note: this returns a copy.
      * @details Example usage: `const std::string s_trimmed = this->remove_whitespace(s);`
      * @param str String to remove whitespace from.
-     * @param whitespace String containing characters to remove (default=" \t").
+     * @param whitespace String containing characters to remove (default=`" \t"`).
      * @return String without whitespace.
      */
     [[nodiscard]] static std::string remove_whitespace(const std::string &str, const std::string &whitespace = " \t");
