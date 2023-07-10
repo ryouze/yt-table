@@ -250,8 +250,9 @@ inline void HTMLFile::force_rename(const std::string &new_filepath) const
 [[nodiscard]] std::string HTMLFile::remove_whitespace(const std::string &str, const std::string &whitespace)
 {
     const size_t start = str.find_first_not_of(whitespace);
-    if (start == std::string::npos)
+    if (start == std::string::npos) {
         throw std::runtime_error("Cannot remove trailing whitespace from '" + str + "', because it's empty.");
+    }
     const size_t end = str.find_last_not_of(whitespace);
     const size_t range = end - start + 1;
     return str.substr(start, range);

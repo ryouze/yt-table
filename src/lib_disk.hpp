@@ -11,7 +11,7 @@ namespace lib_disk {
 class AbstractFile {
   public:
     /**
-     * @brief Initialize the protected `filepath_` variable.
+     * @brief Initialize a protected reference to a private string containing the filepath.
      * @param filepath Path to the file.
      */
     AbstractFile(const std::string &filepath) : filepath_(filepath) {}
@@ -38,6 +38,7 @@ class HTMLFile : public AbstractFile {
   public:
     /**
      * @brief Read HTML file from disk (create placeholder if doesn't exist), extract current subscriptions list.
+     * @details A protected reference to filepath is also initalized.
      * @param filepath Path to the file.
      */
     HTMLFile(const std::string &filepath);
@@ -50,7 +51,7 @@ class HTMLFile : public AbstractFile {
 
     /**
      * @brief Add channel to subscriptions list. Use `this->write_to_disk()` to commit changes. If failed, throw.
-     * @param string_to_split Name of the channel, very short description of the channel, link to the channel , e.g., `Noriyaro;JP Drifting;https://www.youtube.com/@noriyaro/videos/`.
+     * @param string_to_split Name of the channel, very short description of the channel, link to the channel , e.g., `Noriyaro;JP Drifting;https://www.youtube.com/@noriyaro/videos/`. This is case sensitive.
      */
     void add(const std::string &string_to_split);
 
