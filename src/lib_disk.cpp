@@ -135,7 +135,8 @@ HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set
     * 1) First data cell is always the link.
     * 2) Second data cell is always the description.
 
-    This will break completely if two `<td>`'s are on the same line, which is perfectly valid HTML.
+    This will break completely if two `<td>`'s are on the same line, which is, nevertheless, perfectly valid HTML.
+    Simply put, we're naively assuming that the data cells will always be newline-separated, as that's how the program formats the output HTML - it creates newline-separated data cells and it reads newline-separated data cells.
 
     Leading & trailing whitespace are not removed, because we expect to store raw HTML data internally.
     */
