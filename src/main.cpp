@@ -9,7 +9,7 @@ int main(int argc, char **argv)
     try {
         // process command line arguments
         const lib_args::ArgParser args{argc, argv};
-        // add or remove channel
+        // create the HTML placeholder if doesn't exist; add or remove channel
         lib_disk::HTMLFile file{args.output};
         switch (args.mode) {
         case lib_args::mode_t::ADD:
