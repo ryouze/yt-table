@@ -1,8 +1,8 @@
 #include "lib_args.hpp"  // lib_args::ArgParser
 #include "lib_disk.hpp"  // lib_disk::HTMLFile
-#include <filesystem>    // [C++17 required] std::filesystem::filesystem_error
+#include <cstdlib>       // std::exit, EXIT_FAILURE
+#include <exception>     // std::exception
 #include <iostream>      // std::cout, std::cerr
-#include <stdexcept>     // std::runtime_error
 
 int main(int argc, char **argv)
 {
@@ -30,11 +30,9 @@ int main(int argc, char **argv)
         // save to disk
         file.write_to_disk();
     }
-    catch (const std::filesystem::filesystem_error &e) {  // derived from `std::runtime_error`
-        std::cerr << "Filesystem error: " << e.what() << '\n';
-    }
     catch (const std::runtime_error &e) {
-        std::cerr << "Runtime error: " << e.what() << '\n';
+        std::cerr << "Error: " << e.what() << '\n';
+        std::exit(EXIT_FAILURE);
     }
     catch (...) {
         std::cerr << "Unknown error.\n";
