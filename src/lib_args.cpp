@@ -73,7 +73,7 @@ std::string ArgParsingHelperUtil::get_keyword_pair(const std::string &arg_name) 
     if (itr != this->arguments_.end() && ++itr != this->arguments_.end()) {
         return *itr;
     }
-    throw std::runtime_error("Cannot get value of keyword argument using key '" + arg_name + "', because its value doesn't exist.");
+    throw std::runtime_error("The keyword argument '" + arg_name + "' does not contain a value (e.g., `--remove 'CToretto'`).");
 }
 
 }  // namespace
