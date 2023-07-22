@@ -18,7 +18,7 @@ namespace lib_disk {
 namespace html_template {
 
 /**
- * @brief Get the beginning of HTML - doctype, head, style, body opening tag, main opening tag, table with header.
+ * @brief Get the beginning of HTML - doctype, HTML opening tag, head, style, body opening tag, main opening tag, table with header.
  * @details Indentation and trailing newline are included.
  * @return The beginning of a HTML file, with table opening tag and table header.
  */
@@ -97,7 +97,7 @@ namespace html_template {
 }
 
 /**
- * @brief Get the ending of HTML - main closing tag, body closing tag.
+ * @brief Get the ending of HTML - main closing tag, body closing tag, HTML closing tag.
  * @details Indentation and trailing newline are included.
  * @return The end of a HTML file, with table closing tag.
  */
