@@ -36,6 +36,7 @@ int main(int argc, char **argv)
     }
     catch (...) {
         std::cerr << "Unknown error.\n";
+        std::exit(EXIT_FAILURE);
     }
     return 0;
 }
