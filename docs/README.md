@@ -81,4 +81,4 @@ E.g., `./yt-table --remove 'Noriyaro'`
 
 This might be a bit slow if the HTML table is big (i.e., it'll take more than 1 millisecond).
 
-> NOTE: An automatic backup will created (`table.html.old`) before writing any changes.
+> NOTE: An automatic backup will be created (`table.html.old`) before writing any changes.
