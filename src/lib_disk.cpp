@@ -170,7 +170,7 @@ HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set
 
 void HTMLFile::add(const std::string &string_to_split)
 {
-    // remove whitespace, split at semicolons
+    // split string at semicolons into three items
     std::vector<std::string> elements;
     {
         std::string buffer;
@@ -184,10 +184,10 @@ void HTMLFile::add(const std::string &string_to_split)
             throw std::runtime_error("Could not extract three items (`NAME;DESCRIPTION;LINK`) from string '" + string_to_split + "' (" + std::to_string(elements_count) + " items were extracted). Use `--help` to display examples.");
         }
     }
-    // extract all three elements from vector
-    const std::string name = elements.at(0);
-    const std::string description = elements.at(1);
-    const std::string link = elements.at(2);
+    // extract all three elements from vector, remove leading & trailing whitespace
+    const std::string name = this->remove_whitespace(elements.at(0));
+    const std::string description = this->remove_whitespace(elements.at(1));
+    const std::string link = this->remove_whitespace(elements.at(2));
     /*
     1. Check if subscription doesn't already exist.
 
@@ -195,12 +195,12 @@ void HTMLFile::add(const std::string &string_to_split)
     * 1) `first` is the full link, as constructed from `link` & `name`.
     * 2) `second` is the description, as constructed from `description`.
     */
-    const std::string key = R"(        <td><a target="_blank" href=")" + link + R"(">)" + this->remove_whitespace(name) + "</a></td>";
+    const std::string key = R"(        <td><a target="_blank" href=")" + link + R"(">)" + name + "</a></td>";
     if (this->subscriptions_.count(key) != 0) {
         throw std::runtime_error("Cannot add channel '" + name + "', because it already exists: '" + key + "'.");
     }
     this->subscriptions_.insert(
-        {key, "        <td>" + this->remove_whitespace(description) + "</td>"});
+        {key, "        <td>" + description + "</td>"});
 }
 
 void HTMLFile::remove(const std::string &name)
