@@ -174,9 +174,11 @@ void HTMLFile::add(const std::string &string_to_split)
     std::vector<std::string> elements;
     {
         std::string buffer;
+        // remove leading & trailing whitespace from the entire string
         std::stringstream s(this->remove_whitespace(string_to_split));
         while (std::getline(s, buffer, ';')) {
-            elements.push_back(buffer);
+            // remove leading & trailing whitespace from each individual item
+            elements.push_back(this->remove_whitespace(buffer));
         }
         // we need exactly three items: `NAME;DESCRIPTION;LINK`
         const std::size_t elements_count = elements.size();
@@ -184,10 +186,10 @@ void HTMLFile::add(const std::string &string_to_split)
             throw std::runtime_error("Could not extract three items (`NAME;DESCRIPTION;LINK`) from string '" + string_to_split + "' (" + std::to_string(elements_count) + " items were extracted). Use `--help` to display examples.");
         }
     }
-    // extract all three elements from vector, remove leading & trailing whitespace
-    const std::string name = this->remove_whitespace(elements.at(0));
-    const std::string description = this->remove_whitespace(elements.at(1));
-    const std::string link = this->remove_whitespace(elements.at(2));
+    // extract all three elements from vector
+    const std::string name = elements.at(0);
+    const std::string description = elements.at(1);
+    const std::string link = elements.at(2);
     /*
     1. Check if subscription doesn't already exist.
 
