@@ -199,7 +199,7 @@ void HTMLFile::add(const std::string &string_to_split)
     */
     const std::string key = R"(        <td><a target="_blank" href=")" + link + R"(">)" + name + "</a></td>";
     if (this->subscriptions_.count(key) != 0) {
-        throw std::runtime_error("Cannot add channel '" + name + "', because it already exists: '" + key + "'.");
+        throw std::runtime_error("Cannot add channel '" + name + "', because it already exists: '" + this->remove_whitespace(key) + "'.");
     }
     this->subscriptions_.insert(
         {key, "        <td>" + description + "</td>"});
