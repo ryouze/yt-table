@@ -17,7 +17,7 @@ class AbstractFile {
     AbstractFile(const std::string &filepath) : filepath_(filepath) {}
 
     /**
-     * @brief Get status of the file as a formatted string.
+     * @brief Get status of the file as a formatted string with trailing newline.
      * @details This is a pure virtual function declaration that must be overriden by the child class.
      * @return Long, formatted string containing the status of the file.
      */
