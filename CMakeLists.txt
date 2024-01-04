@@ -1,50 +1,52 @@
-# Set the minimum acceptable version of CMake.
-# To find your current version, run `cmake --version`.
+# Specify the minimum version of CMake that can be used.
+# To check your current version, use the command `cmake --version`.
 cmake_minimum_required (VERSION "3.18")
 
-# Set the project's name.
+# Define the project name.
 project ("yt-table")
 
-# Set C++17 standard.
+# Enforce the use of C++17 standard.
+# If the compiler does not support C++17, an error will be thrown during configuration, not during compilation.
 set (CMAKE_CXX_STANDARD "17")
-set (CMAKE_CXX_STANDARD_REQUIRED "ON") # throw error at configure time if C++17 isn't supported by the compiler, instead of a compilation error
+set (CMAKE_CXX_STANDARD_REQUIRED "ON")
 
-# Enable warnings (unused variables and other mistakes).
+# Enable compiler warnings for potential code issues (like unused variables).
+# The "-Werror" flag treats all warnings as errors, halting the build process if any warning is encountered.
 add_compile_options (
     "-Wall"
     "-Wextra"
-    "-Werror" # turns all warnings into errors, which prevents `make && ./output` from running
+    "-Werror"
     "-Wpedantic"
 )
 
-# Set default build variant to `Release`, unless specified otherwise (e.g., via VSCode's GUI settings).
-# This greatly reduces filesize (e.g., 0.5MB -> 39KB).
+# Set the default build type to `Release` if not specified otherwise (e.g., via VSCode's GUI settings).
+# This can significantly reduce the size of the output file (e.g., from 0.5MB to 39KB).
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-    set (CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose build type." FORCE)
-    message (STATUS "${PROJECT_NAME}: Setting build type to default (${CMAKE_BUILD_TYPE}), because no build type was specified.")
-    # Set the possible values of build type for cmake-gui.
+    set (CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the build type." FORCE)
+    message (STATUS "${PROJECT_NAME}: Defaulting build type to '${CMAKE_BUILD_TYPE}' as no specific type was provided.")
+    # Define the possible values of build type for cmake-gui.
     set_property (CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif ()
 
-# Create variable: directory containing the `.cpp` files.
+# Define the directory that contains the source `.cpp` files.
 set (
-    SOURCE_DIRECTORY # set variable name
+    SOURCE_DIRECTORY
     "src"
 )
 
-# Create variable: target `.cpp` files to compile.
+# Define the source `.cpp` files to be compiled.
 set (
-    SOURCE_FILES # set variable name
+    SOURCE_FILES
     "${SOURCE_DIRECTORY}/main.cpp"
     "${SOURCE_DIRECTORY}/lib_args.cpp"
     "${SOURCE_DIRECTORY}/lib_disk.cpp"
 )
 
-# Set an output executable, created using the ".cpp" files listed above.
+# Define the output executable, which is created by compiling the source files defined above.
 add_executable (
-    ${PROJECT_NAME} # executable name: same as project name, i.e., `yt-table`
-    ${SOURCE_FILES} # target `.cpp` files to compile
+    ${PROJECT_NAME} # The name of the executable will be the same as the project name, i.e., `yt-table`.
+    ${SOURCE_FILES} # The source files to be compiled.
 )
 
-# Print build type to console, just in case.
+# Output the build type to the console for verification.
 message (STATUS "${PROJECT_NAME}: Build type: ${CMAKE_BUILD_TYPE}.")
