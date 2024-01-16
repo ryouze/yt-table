@@ -14,7 +14,12 @@ class AbstractFile {
      * @brief Initialize a protected reference to a private string containing the filepath.
      * @param filepath Path to the file.
      */
-    AbstractFile(const std::string &filepath) : filepath_(filepath) {}
+    explicit AbstractFile(const std::string &filepath) : filepath_(filepath) {}
+
+    /**
+     * @brief Virtual destructor. Enables proper cleanup for derivded classes.
+     */
+    virtual ~AbstractFile() = default;
 
     /**
      * @brief Get status of the file as a formatted string with trailing newline.
@@ -41,7 +46,7 @@ class HTMLFile : public AbstractFile {
      * @details A protected reference to filepath is also initalized.
      * @param filepath Path to the file.
      */
-    HTMLFile(const std::string &filepath);
+    explicit HTMLFile(const std::string &filepath);
 
     /**
      * @brief Get status of the HTML file as a formatted string.
