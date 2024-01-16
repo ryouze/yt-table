@@ -1,52 +1,72 @@
-# Specify the minimum version of CMake that can be used.
-# To check your current version, use the command `cmake --version`.
-cmake_minimum_required (VERSION "3.18")
+# Minimum required version of CMake (3.19 is the first version to support Apple Silicon)
+cmake_minimum_required(VERSION 3.19)
 
-# Define the project name.
-project ("yt-table")
-
-# Enforce the use of C++17 standard.
-# If the compiler does not support C++17, an error will be thrown during configuration, not during compilation.
-set (CMAKE_CXX_STANDARD "17")
-set (CMAKE_CXX_STANDARD_REQUIRED "ON")
-
-# Enable compiler warnings for potential code issues (like unused variables).
-# The "-Werror" flag treats all warnings as errors, halting the build process if any warning is encountered.
-add_compile_options (
-    "-Wall"
-    "-Wextra"
-    "-Werror"
-    "-Wpedantic"
+# Project name
+project(yt-table
+    VERSION 1.0
+    DESCRIPTION "Date and time recognition using regex."
+    LANGUAGES CXX
 )
 
-# Set the default build type to `Release` if not specified otherwise (e.g., via VSCode's GUI settings).
-# This can significantly reduce the size of the output file (e.g., from 0.5MB to 39KB).
-if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-    set (CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the build type." FORCE)
-    message (STATUS "${PROJECT_NAME}: Defaulting build type to '${CMAKE_BUILD_TYPE}' as no specific type was provided.")
-    # Define the possible values of build type for cmake-gui.
-    set_property (CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
-endif ()
+# Require out-of-source builds
+file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
+if(EXISTS "${LOC_PATH}")
+    message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory (mkdir build && cd build && cmake ..). Feel free to remove CMakeCache.txt and CMakeFiles.")
+endif()
 
-# Define the directory that contains the source `.cpp` files.
-set (
-    SOURCE_DIRECTORY
-    "src"
+# C++ standard and requirement
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Default build type: Release
+set(default_build_type "Release")
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
+    set(CMAKE_BUILD_TYPE
+        "${default_build_type}"
+        CACHE
+        STRING "Choose the type of build."
+        FORCE
+    )
+    # Set the possible values of build type for cmake-gui
+    set_property(CACHE CMAKE_BUILD_TYPE
+        PROPERTY STRINGS
+        "Debug"
+        "Release"
+        "MinSizeRel"
+        "RelWithDebInfo"
+    )
+endif()
+
+# Aggressive optimization for Release build
+add_compile_options("$<$<CONFIG:RELEASE>:-O3>")
+
+# Compile options (must be placed before add_executable)
+# -Wall: Enable all warnings
+# -Wextra: Enable extra warnings that are not enabled by -Wall
+# -Werror: Treat warnings as errors
+# -Wpedantic: Request strict ISO C++ compliance
+add_compile_options(-Wall -Wextra -Werror -Wpedantic)
+
+# Source files
+set(SOURCES
+    src/main.cpp
+    src/lib_args.cpp
+    src/lib_disk.cpp
 )
 
-# Define the source `.cpp` files to be compiled.
-set (
-    SOURCE_FILES
-    "${SOURCE_DIRECTORY}/main.cpp"
-    "${SOURCE_DIRECTORY}/lib_args.cpp"
-    "${SOURCE_DIRECTORY}/lib_disk.cpp"
-)
+# Executable definition
+add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Define the output executable, which is created by compiling the source files defined above.
-add_executable (
-    ${PROJECT_NAME} # The name of the executable will be the same as the project name, i.e., `yt-table`.
-    ${SOURCE_FILES} # The source files to be compiled.
-)
-
-# Output the build type to the console for verification.
-message (STATUS "${PROJECT_NAME}: Build type: ${CMAKE_BUILD_TYPE}.")
+# Link-Time Optimization (must be placed after add_executable)
+include(CheckIPOSupported)
+check_ipo_supported(RESULT result)
+if(result)
+    set_property(GLOBAL
+        PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE
+    )
+    message(STATUS "Link Time Optimization is enabled.")
+else()
+    message(STATUS "Link Time Optimization is not supported.")
+endif()
