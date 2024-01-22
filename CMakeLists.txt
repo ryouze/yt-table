@@ -39,8 +39,11 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     )
 endif()
 
-# Aggressive optimization for Release build
+# Set optimization levels for different configurations:
+# - Release: Enable level 3 optimizations (-O3) for maximum performance
+# - MinSizeRel: Optimize for size (-Os), enabling all -O2 optimizations that do not increase code size
 add_compile_options("$<$<CONFIG:RELEASE>:-O3>")
+add_compile_options("$<$<CONFIG:MINSIZEREL>:-Os>")
 
 # Compile options (must be placed before add_executable)
 # -Wall: Enable all warnings
