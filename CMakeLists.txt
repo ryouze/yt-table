@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.19)
 # Project name
 project(yt-table
     VERSION 1.0
-    DESCRIPTION "Date and time recognition using regex."
+    DESCRIPTION "YouTube subscriptions manager."
     LANGUAGES CXX
 )
 
