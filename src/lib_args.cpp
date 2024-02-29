@@ -1,4 +1,4 @@
-#include "lib_args.hpp"  // for lib_args::ArgParser
+#include "lib_args.hpp"
 
 #include <algorithm>  // for std::find
 #include <cstdlib>    // for std::exit, EXIT_SUCCESS

@@ -1,5 +1,5 @@
-#include "lib_args.hpp"  // for lib_args::ArgParser
-#include "lib_disk.hpp"  // for lib_disk::HTMLFile
+#include "lib_args.hpp"
+#include "lib_disk.hpp"
 
 #include <cstdlib>    // for std::exit, EXIT_FAILURE
 #include <iostream>   // for std::cout, std::cerr

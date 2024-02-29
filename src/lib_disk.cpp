@@ -1,4 +1,4 @@
-#include "lib_disk.hpp"  // for lib_disk::HTMLFile
+#include "lib_disk.hpp"
 
 #include <cstddef>     // for std::size_t
 #include <filesystem>  // for  std::filesystem::remove, std::filesystem::rename, std::filesystem::is_empty
