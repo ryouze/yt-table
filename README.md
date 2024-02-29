@@ -7,7 +7,7 @@ yt-table is a command-line tool for managing YouTube subscriptions.
 
 As someone who prefers not to use a Google account, I maintain my YouTube "subscriptions" through a locally-stored HTML table.
 
-Of course, manually editing HTML is cumbersome. To streamline this process, I developed yt-table, a command-line tool that automates the management of these subscriptions. It offers two functionalities: adding a channel (`--add`) and removing a channel (`--remove`). I run it once a month, it's fast, and it gets the job done.
+Of course, editing HTML code manually is cumbersome. To streamline this process, I developed yt-table, a command-line tool that automates the management of these subscriptions. It offers two functionalities: adding a channel (`--add`) and removing a channel (`--remove`). I run it once a month, it's fast, and it gets the job done.
 
 
 ## Features
