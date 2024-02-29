@@ -1,8 +1,9 @@
-#include "lib_args.hpp"  // lib_args::ArgParser
-#include "lib_disk.hpp"  // lib_disk::HTMLFile
-#include <cstdlib>       // std::exit, EXIT_FAILURE
-#include <exception>     // std::exception
-#include <iostream>      // std::cout, std::cerr
+#include "lib_args.hpp"  // for lib_args::ArgParser
+#include "lib_disk.hpp"  // for lib_disk::HTMLFile
+
+#include <cstdlib>    // for std::exit, EXIT_FAILURE
+#include <iostream>   // for std::cout, std::cerr
+#include <stdexcept>  // for std::runtime_error
 
 int main(int argc, char **argv)
 {

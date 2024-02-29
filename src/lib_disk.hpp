@@ -1,7 +1,7 @@
 #pragma once
 
-#include <map>     // std::map
-#include <string>  // std::string
+#include <map>     // for std::map
+#include <string>  // for std::string
 
 namespace lib_disk {
 

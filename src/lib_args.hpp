@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>  // std::string
+#include <string>  // for std::string
 
 namespace lib_args {
 

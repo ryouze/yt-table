@@ -1,13 +1,13 @@
-#include "lib_disk.hpp"  // lib_disk::HTMLFile
-#include <cstddef>       // std::size_t
-#include <filesystem>    // [C++17 required] std::filesystem::remove, std::filesystem::rename, std::filesystem::is_empty
-#include <fstream>       // std::fstream, std::ofstream
-#include <ios>           // std::ios_base::in, std::ios_base::out
-#include <map>           // std::map
-#include <sstream>       // std::stringstream
-#include <stdexcept>     // std::runtime_error
-#include <string>        // std::string, std::getline
-#include <vector>        // std::vector
+#include "lib_disk.hpp"  // for lib_disk::HTMLFile
+
+#include <cstddef>     // for std::size_t
+#include <filesystem>  // for  std::filesystem::remove, std::filesystem::rename, std::filesystem::is_empty
+#include <fstream>     // for std::fstream, std::ofstream
+#include <ios>         // for std::ios_base::in, std::ios_base::out
+#include <sstream>     // for std::stringstream
+#include <stdexcept>   // for std::runtime_error
+#include <string>      // for std::string, std::getline, std::to_string
+#include <vector>      // for std::vector
 
 namespace lib_disk {
 
