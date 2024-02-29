@@ -62,6 +62,12 @@ set(SOURCES
 # Executable definition
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+# Install DLLs in the same directory as the executable on Windows
+if(WIN32)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+endif()
+
 # Link-Time Optimization (must be placed after add_executable)
 include(CheckIPOSupported)
 check_ipo_supported(RESULT result)
@@ -73,3 +79,6 @@ if(result)
 else()
     message(STATUS "Link Time Optimization is not supported.")
 endif()
+
+# Print the build type
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
