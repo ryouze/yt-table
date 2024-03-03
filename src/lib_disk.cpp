@@ -9,8 +9,6 @@
 #include <string>      // for std::string, std::getline, std::to_string
 #include <vector>      // for std::vector
 
-namespace lib_disk {
-
 /**
  * @brief Get HTML template in parts: beginning and end.
  * @details If you want to modify the HTML's appearance, edit the `<style>` tag in `get_beginning()`.
@@ -113,7 +111,7 @@ namespace html_template {
 
 }  // namespace html_template
 
-HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set private variable `this->filepath_` (reference to `std::string`)
+lib_disk::HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set private variable `this->filepath_` (reference to `std::string`)
 {
     // prepare for read/write mode
     std::fstream f;
@@ -159,7 +157,7 @@ HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set
     }
 }
 
-[[nodiscard]] std::string HTMLFile::get_status() const
+[[nodiscard]] std::string lib_disk::HTMLFile::get_status() const
 {
     std::string res = "* this->filepath='" + this->filepath_ + "'\n";
     for (const auto &itr : this->subscriptions_) {
@@ -168,7 +166,7 @@ HTMLFile::HTMLFile(const std::string &filepath) : AbstractFile(filepath)  // set
     return res;
 }
 
-void HTMLFile::add(const std::string &string_to_split)
+void lib_disk::HTMLFile::add(const std::string &string_to_split)
 {
     // split string at semicolons into three items
     std::vector<std::string> elements;
@@ -205,7 +203,7 @@ void HTMLFile::add(const std::string &string_to_split)
         {key, "        <td>" + description + "</td>"});
 }
 
-void HTMLFile::remove(const std::string &name)
+void lib_disk::HTMLFile::remove(const std::string &name)
 {
     if (this->subscriptions_.empty()) {
         throw std::runtime_error("Cannot remove channel '" + name + "', because the subscriptions list doesn't contain any channels.");
@@ -222,7 +220,7 @@ void HTMLFile::remove(const std::string &name)
     throw std::runtime_error("Cannot remove channel '" + name + "', because it is not present in the subscriptions list.");
 }
 
-void HTMLFile::write_to_disk() const
+void lib_disk::HTMLFile::write_to_disk() const
 {
     // create backup of current filepath by renaming it to current filepath + ".bak" (old backup will be deleted)
     this->force_rename(this->filepath_ + ".bak");
@@ -242,13 +240,13 @@ void HTMLFile::write_to_disk() const
     f << html_template::get_ending();  // add closing (table, body closing tags)
 }
 
-inline void HTMLFile::force_rename(const std::string &new_filepath) const
+inline void lib_disk::HTMLFile::force_rename(const std::string &new_filepath) const
 {
     std::filesystem::remove(new_filepath);                   // True if the file was deleted, False if it did not exist. If failed, throw.
     std::filesystem::rename(this->filepath_, new_filepath);  // If failed, throw.
 }
 
-[[nodiscard]] std::string HTMLFile::remove_whitespace(const std::string &str, const std::string &whitespace)
+[[nodiscard]] std::string lib_disk::HTMLFile::remove_whitespace(const std::string &str, const std::string &whitespace)
 {
     const size_t start = str.find_first_not_of(whitespace);
     if (start == std::string::npos) {
@@ -258,5 +256,3 @@ inline void HTMLFile::force_rename(const std::string &new_filepath) const
     const size_t range = end - start + 1;
     return str.substr(start, range);
 }
-
-}  // namespace lib_disk

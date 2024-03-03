@@ -7,8 +7,6 @@
 #include <string>     // for std::string
 #include <vector>     // for std::vector
 
-namespace lib_args {
-
 /**
  * @brief Helper utilities, only accessible within this CPP file.
  */
@@ -79,7 +77,7 @@ std::string ArgParsingHelperUtil::get_keyword_pair(const std::string &arg_name) 
 
 }  // namespace
 
-ArgParser::ArgParser(const int argc, char **argv)
+lib_args::ArgParser::ArgParser(const int argc, char **argv)
 {
     /**
      * @brief C-style arguments (`char **argv`) converted to a a string vector (`std::string`).
@@ -126,5 +124,3 @@ ArgParser::ArgParser(const int argc, char **argv)
         // NO ARGUMENT: do nothing, this will be caught later
     }
 }
-
-}  // namespace lib_args
