@@ -8,7 +8,7 @@ namespace lib_args {
  * @brief Table modification mode: `UNKNOWN`, `ADD`, `REMOVE`.
  * @details Enum classes require C++11.
  */
-enum class mode_t {
+enum class ArgMode {
     UNKNOWN,
     ADD,
     REMOVE,
@@ -41,7 +41,7 @@ class ArgParser {
      * Should be overwritten through a command line argument (throw if not overwritten).
      * @details `UNKNOWN` is the default value, which will throw.
      */
-    mode_t mode = mode_t::UNKNOWN;
+    ArgMode mode = ArgMode::UNKNOWN;
 
     /**
      * @brief String provided to mode, used as argument.

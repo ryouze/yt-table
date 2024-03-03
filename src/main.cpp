@@ -13,11 +13,11 @@ int main(int argc, char **argv)
         // create the HTML placeholder if doesn't exist; add or remove channel
         lib_disk::HTMLFile file{args.output};
         switch (args.mode) {
-        case lib_args::mode_t::ADD:
+        case lib_args::ArgMode::ADD:
             file.add(args.mode_arg_string);
             std::cout << "Channel added to '" << args.output << "'.\n";
             break;
-        case lib_args::mode_t::REMOVE:
+        case lib_args::ArgMode::REMOVE:
             file.remove(args.mode_arg_string);
             std::cout << "Channel removed from '" << args.output << "'.\n";
             break;

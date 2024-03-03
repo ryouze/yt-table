@@ -113,12 +113,12 @@ lib_args::ArgParser::ArgParser(const int argc, char **argv)
         // -- mandatory arguments begin below this line --
         // MANDATORY/ELSE: add channel to subscriptions table
         if (helper.check_if_exists("--add")) {
-            this->mode = mode_t::ADD;
+            this->mode = ArgMode::ADD;
             this->mode_arg_string = helper.get_keyword_pair("--add");  // set string, e.g., `--add foo`
         }
         // MANDATORY/ELSE: remove channel from subscriptions table
         else if (helper.check_if_exists("--remove")) {
-            this->mode = mode_t::REMOVE;
+            this->mode = ArgMode::REMOVE;
             this->mode_arg_string = helper.get_keyword_pair("--remove");  // set string, e.g., `--remove foo`
         }
         // NO ARGUMENT: do nothing, this will be caught later
