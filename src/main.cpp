@@ -8,6 +8,8 @@
 int main(int argc, char **argv)
 {
     try {
+        // Disable synchronization between the C++ standard streams (e.g., std::cin, std::cout) and their corresponding C equivalents
+        std::ios_base::sync_with_stdio(false);
         // process command line arguments
         const lib_args::ArgParser args{argc, argv};
         // create the HTML placeholder if doesn't exist; add or remove channel
