@@ -2,6 +2,7 @@
 #include "lib_disk.hpp"
 
 #include <cstdlib>    // for std::exit, EXIT_FAILURE
+#include <ios>        // for std::ios_base
 #include <iostream>   // for std::cout, std::cerr
 #include <stdexcept>  // for std::runtime_error
 
