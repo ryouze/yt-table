@@ -44,18 +44,16 @@ void print_channel_names(const std::vector<core::html::Channel> &channels)
  * @brief Get user input from the console.
  *
  * @param prompt Prompt to display before the input (e.g., "Name: ").
- * @param required If true, the function will keep asking for input until a non-empty string is provided. If false, the function will return an empty string if the user provides no input (default: true).
  *
  * @return String containing the user input.
  */
-[[nodiscard]] std::string get_input(const std::string &prompt,
-                                    const bool required = true)
+[[nodiscard]] std::string get_input(const std::string &prompt)
 {
     std::string input;
-    while (required && input.empty()) {
+    do {
         fmt::print("{}", prompt);
         std::getline(std::cin, input);
-    }
+    } while (input.empty());
     return input;
 }
 
