@@ -183,6 +183,14 @@ int test_html::save_load()
         // Get path to the resources directory
         const auto temp_file = (pathmaster::get_resources_directory(TEST_EXECUTABLE_NAME) / "test_channels.html").string();
 
+        // Clean up before the tests
+        const auto temp_dir = std::filesystem::path(temp_file).parent_path();
+        if (!std::filesystem::exists(temp_dir)) {
+            throw std::runtime_error("Directory wasn't created: " + temp_dir.string());
+        }
+        std::filesystem::remove_all(temp_dir);
+        std::filesystem::create_directories(temp_dir);
+
         // Create a dummy vector of channels ("core::html::load" will sort them alphabetically by name, so the order is important!)
         const std::vector<core::html::Channel> channels = {
             core::html::Channel("Engineering Explained", "https://www.youtube.com/@EngineeringExplained", "Car Engineering"),
@@ -265,6 +273,14 @@ int test_disk::save_load()
     try {
         // Get path to the resources directory
         const auto temp_file = (pathmaster::get_resources_directory(TEST_EXECUTABLE_NAME) / "test_table.html").string();
+
+        // Clean up before the tests
+        const auto temp_dir = std::filesystem::path(temp_file).parent_path();
+        if (!std::filesystem::exists(temp_dir)) {
+            throw std::runtime_error("Directory wasn't created: " + temp_dir.string());
+        }
+        std::filesystem::remove_all(temp_dir);
+        std::filesystem::create_directories(temp_dir);
 
         // Create a table at the temporary file path
         modules::disk::Table table(temp_file);
