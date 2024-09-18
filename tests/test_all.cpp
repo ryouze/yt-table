@@ -118,6 +118,34 @@ int main(int argc,
     }
 }
 
+namespace {
+
+// RAII class to create a temporary directory
+class TempDir {
+  public:
+    explicit TempDir(const std::filesystem::path &directory)
+        : directory_(directory)
+    {
+        std::filesystem::remove_all(this->directory_);
+        std::filesystem::create_directories(this->directory_);
+    }
+
+    ~TempDir()
+    {
+        std::filesystem::remove_all(this->directory_);
+    }
+
+    const std::filesystem::path &get_directory() const
+    {
+        return this->directory_;
+    }
+
+  private:
+    const std::filesystem::path directory_;
+};
+
+}  // namespace
+
 int test_args::none()
 {
     try {
@@ -183,13 +211,8 @@ int test_html::save_load()
         // Get path to the resources directory
         const auto temp_file = (pathmaster::get_resources_directory(TEST_EXECUTABLE_NAME) / "test_channels.html").string();
 
-        // Clean up before the tests
-        const auto temp_dir = std::filesystem::path(temp_file).parent_path();
-        if (!std::filesystem::exists(temp_dir)) {
-            throw std::runtime_error("Directory wasn't created: " + temp_dir.string());
-        }
-        std::filesystem::remove_all(temp_dir);
-        std::filesystem::create_directories(temp_dir);
+        // pathmaster will create the directory if it doesn't exist, but we want to ensure that tests are isolated
+        const TempDir temp_dir(std::filesystem::path(temp_file).parent_path());
 
         // Create a dummy vector of channels ("core::html::load" will sort them alphabetically by name, so the order is important!)
         const std::vector<core::html::Channel> channels = {
@@ -213,8 +236,6 @@ int test_html::save_load()
 
         fmt::print("core::html::load() passed: loaded channels match the original.\n");
 
-        // Remove directory and its contents
-        std::filesystem::remove_all(std::filesystem::path(temp_file).parent_path());
         return EXIT_SUCCESS;
     }
     catch (const std::exception &e) {
@@ -274,13 +295,8 @@ int test_disk::save_load()
         // Get path to the resources directory
         const auto temp_file = (pathmaster::get_resources_directory(TEST_EXECUTABLE_NAME) / "test_table.html").string();
 
-        // Clean up before the tests
-        const auto temp_dir = std::filesystem::path(temp_file).parent_path();
-        if (!std::filesystem::exists(temp_dir)) {
-            throw std::runtime_error("Directory wasn't created: " + temp_dir.string());
-        }
-        std::filesystem::remove_all(temp_dir);
-        std::filesystem::create_directories(temp_dir);
+        // pathmaster will create the directory if it doesn't exist, but we want to ensure that tests are isolated
+        const TempDir temp_dir(std::filesystem::path(temp_file).parent_path());
 
         // Create a table at the temporary file path
         modules::disk::Table table(temp_file);
@@ -296,8 +312,6 @@ int test_disk::save_load()
         }
         fmt::print("modules::disk::Table::remove() passed: removed channel from the table.\n");
 
-        // Remove directory and its contents
-        std::filesystem::remove_all(std::filesystem::path(temp_file).parent_path());
         return EXIT_SUCCESS;
     }
     catch (const std::exception &e) {
