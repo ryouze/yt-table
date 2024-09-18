@@ -39,7 +39,7 @@ class PathError : public std::runtime_error {
  *
  * The filepath is wrapped in quotes before being concatenated with the platform-specific command.
  *
- * @return Command to open the default web browser (e.g., `open "~/data.html"`).
+ * @return Command to open the default web browser (e.g., open "~/data.html").
  *
  * @throws PathError If failed to build the command or the platform is not supported.
  */
