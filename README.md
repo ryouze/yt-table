@@ -57,7 +57,7 @@ This project has been tested on the following systems:
 
 - macOS 14.6 (Sonoma)
 - Manjaro 24.0 (Wynsdey)
-- Windows 10 21H2
+- Windows 11 23H2
 
 Automated testing is also performed on the latest versions of macOS, GNU/Linux, and Windows using GitHub Actions.
 
