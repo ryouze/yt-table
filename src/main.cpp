@@ -7,12 +7,11 @@
 
 #include <fmt/core.h>
 
-#if defined(_WIN32)
-#include <pathmaster/pathmaster.hpp>
-#endif
-
 #include "app.hpp"
 #include "core/args.hpp"
+#if defined(_WIN32)
+#include "core/io.hpp"
+#endif
 
 /**
  * @brief Entry-point of the application.
@@ -26,24 +25,21 @@ int main(int argc,
          char **argv)
 {
     try {
-
 #if defined(_WIN32)
-        // Enable UTF-8 output on Windows
-        pathmaster::setup_utf8_console_output();
+        // Setup UTF-8 input/output on Windows (does nothing on other platforms)
+        core::io::setup_utf8_console();
 #endif
 
+        // Parse command-line arguments, but do not pass them, as this class only checks for "--help" or "--version"
+        core::args::Args(argc, argv);
+
         // Run the application
-        app::run(argc, argv);
+        app::run();
     }
     catch (const core::args::ArgsMessage &e) {
         // User requested help or version
         fmt::print("{}\n", e.what());
         return EXIT_SUCCESS;
-    }
-    catch (const core::args::ArgsError &e) {
-        // Failed to parse command-line arguments
-        fmt::print(stderr, "{}\n", e.what());
-        return EXIT_FAILURE;
     }
     catch (const std::exception &e) {
         fmt::print(stderr, "{}\n", e.what());
