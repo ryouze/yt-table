@@ -136,12 +136,14 @@ int main(int argc,
 int test_args::none()
 {
     try {
-        // This class does nothing, unless the first argument is "-h" or "--v", in which case it throws an exception, which should be caught
-        core::args::Args(1, nullptr);
+        char test_executable_name[] = TEST_EXECUTABLE_NAME;
+        char *fake_argv[] = {test_executable_name};
+        core::args::Args(1, fake_argv);
+        // The program should run normally and print system information to console
         fmt::print("core::args::Args() passed: no arguments.\n");
         return EXIT_SUCCESS;
     }
-    catch (const std::exception &e) {
+    catch (const core::args::ArgsError &e) {
         fmt::print(stderr, "core::args::Args() failed: {}\n", e.what());
         return EXIT_FAILURE;
     }
@@ -150,13 +152,15 @@ int test_args::none()
 int test_args::help()
 {
     try {
-        char *fake_argv[] = {const_cast<char *>(TEST_EXECUTABLE_NAME), const_cast<char *>("-h")};
+        char test_executable_name[] = TEST_EXECUTABLE_NAME;
+        char arg_help[] = "-h";
+        char *fake_argv[] = {test_executable_name, arg_help};
         core::args::Args(2, fake_argv);
-        // This should never be reached, as the ArgsError exception should be thrown by the constructor
-        fmt::print("core::args::Args() failed: no help message displayed.\n");
+        // This should never be reached, as the ArgsMessage exception should be thrown by the constructor
+        fmt::print(stderr, "core::args::Args() failed: no help message displayed.\n");
         return EXIT_FAILURE;
     }
-    catch (const std::exception &e) {
+    catch (const core::args::ArgsMessage &) {
         fmt::print("core::args::Args() passed: help message displayed.\n");
         return EXIT_SUCCESS;
     }
@@ -165,13 +169,15 @@ int test_args::help()
 int test_args::version()
 {
     try {
-        char *fake_argv[] = {const_cast<char *>(TEST_EXECUTABLE_NAME), const_cast<char *>("-v")};
+        char test_executable_name[] = TEST_EXECUTABLE_NAME;
+        char arg_version[] = "-v";
+        char *fake_argv[] = {test_executable_name, arg_version};
         core::args::Args(2, fake_argv);
-        // This should never be reached, as the ArgsError exception should be thrown by the constructor
-        fmt::print("core::args::Args() failed: no version displayed.\n");
+        // This should never be reached, as the ArgsMessage exception should be thrown by the constructor
+        fmt::print(stderr, "core::args::Args() failed: no version displayed.\n");
         return EXIT_FAILURE;
     }
-    catch (const std::exception &e) {
+    catch (const core::args::ArgsMessage &e) {
         fmt::print("core::args::Args() passed: version displayed: {}\n", e.what());
         return EXIT_SUCCESS;
     }
@@ -180,13 +186,15 @@ int test_args::version()
 int test_args::invalid()
 {
     try {
-        char *fake_argv[] = {const_cast<char *>(TEST_EXECUTABLE_NAME), const_cast<char *>("hello")};
+        char test_executable_name[] = TEST_EXECUTABLE_NAME;
+        char arg_hello[] = "hello";
+        char *fake_argv[] = {test_executable_name, arg_hello};
         core::args::Args(2, fake_argv);
         // This should never be reached, as the ArgsError exception should be thrown by the constructor
-        fmt::print("core::args::Args() failed: invalid argument wasn't caught.\n");
+        fmt::print(stderr, "core::args::Args() failed: invalid argument was not caught.\n");
         return EXIT_FAILURE;
     }
-    catch (const std::exception &e) {
+    catch (const core::args::ArgsError &e) {
         fmt::print("core::args::Args() passed: invalid argument caught: {}\n", e.what());
         return EXIT_SUCCESS;
     }
@@ -196,9 +204,10 @@ int test_html::save_load()
 {
     try {
         // Get path to the resources directory
-        const auto temp_file = (core::paths::get_resources_directory(TEST_EXECUTABLE_NAME) / "test_channels.html").string();
+        const auto temp_file = (core::paths::get_resources_directory(TEST_EXECUTABLE_NAME) / "test_channels.html");
 
-        // pathmaster will create the directory if it doesn't exist, but we want to ensure that tests are isolated
+        // get_resources_directory will create the directory if it doesn't exist, but we want to ensure that tests are isolated
+        // TempDir removes the directory before creating it again
         const helpers::TempDir temp_dir(std::filesystem::path(temp_file).parent_path());
 
         // Create a dummy vector of channels ("core::io::load" will sort them alphabetically by name, so the order is important!)
@@ -210,11 +219,11 @@ int test_html::save_load()
 
         // Save the channels to the temporary file
         core::io::save(temp_file, channels);
-        fmt::print("core::io::save() passed: saved to {}.\n", temp_file);
+        fmt::print("core::io::save() passed: saved to {}.\n", temp_file.string());
 
         // Load the channels back from the temporary file for comparison
         const auto loaded_channels = core::io::load(temp_file);
-        fmt::print("core::io::load() passed: loaded from {}.\n", temp_file);
+        fmt::print("core::io::load() passed: loaded from {}.\n", temp_file.string());
 
         // Verify the loaded channels match the original
         if (loaded_channels != channels) {
@@ -280,14 +289,15 @@ int test_disk::save_load()
 {
     try {
         // Get path to the resources directory
-        const auto temp_file = (core::paths::get_resources_directory(TEST_EXECUTABLE_NAME) / "test_table.html").string();
+        const auto temp_file = (core::paths::get_resources_directory(TEST_EXECUTABLE_NAME) / "test_table.html");
 
-        // pathmaster will create the directory if it doesn't exist, but we want to ensure that tests are isolated
+        // get_resources_directory will create the directory if it doesn't exist, but we want to ensure that tests are isolated
+        // TempDir removes the directory before creating it again
         const helpers::TempDir temp_dir(std::filesystem::path(temp_file).parent_path());
 
         // Create a table at the temporary file path
         modules::disk::Table table(temp_file);
-        fmt::print("modules::disk::Table() passed: created table at {}.\n", temp_file);
+        fmt::print("modules::disk::Table() passed: created table at {}.\n", temp_file.string());
 
         // Add a channel to the table
         table.add(core::io::Channel("Noriyaro", "https://www.youtube.com/@noriyaro/videos", "JP Drifting"));
