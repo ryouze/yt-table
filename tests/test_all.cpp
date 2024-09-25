@@ -14,7 +14,6 @@
 
 #include <fmt/core.h>
 
-#include "app.hpp"
 #include "core/args.hpp"
 #include "core/io.hpp"
 #include "core/paths.hpp"
@@ -43,10 +42,6 @@ namespace test_shell {
 namespace test_disk {
 [[nodiscard]] int save_load();
 }  // namespace test_disk
-
-namespace test_app {
-[[nodiscard]] int help();
-}  // namespace test_app
 
 /**
  * @brief Entry-point of the test application.
@@ -89,7 +84,6 @@ int main(int argc,
         {"test_html::save_load", test_html::save_load},
         {"test_shell::build_command", test_shell::build_command},
         {"test_disk::save_load", test_disk::save_load},
-        {"test_app::help", test_app::help},
     };
 
     // Get the test name from the command-line arguments
@@ -315,24 +309,4 @@ int test_disk::save_load()
         fmt::print(stderr, "modules::disk::Table() failed: {}\n", e.what());
         return EXIT_FAILURE;
     }
-}
-
-int test_app::help()
-{
-    // TODO: Fix later
-    return EXIT_SUCCESS;
-    // try {
-    //     char *fake_argv[] = {const_cast<char *>(TEST_EXECUTABLE_NAME), const_cast<char *>("-h")};
-    //     core::args::Args(2, fake_argv);
-    //     // This should never be reached, as the ArgsError exception should be thrown
-    //     throw std::runtime_error("Did not exit immediately after being asked to display the help message with '-h'");
-    // }
-    // catch (const std::exception &e) {
-    //     fmt::print("app::run() passed.\n");
-    //     return EXIT_SUCCESS;
-    // }
-    // catch (const std::exception &e) {
-    //     fmt::print(stderr, "app::run() failed: {}\n", e.what());
-    //     return EXIT_FAILURE;
-    // }
 }

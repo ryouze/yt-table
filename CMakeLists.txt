@@ -117,7 +117,6 @@ if(BUILD_TESTS)
   register_test(test_html::save_load)
   register_test(test_shell::build_command)
   register_test(test_disk::save_load)
-  register_test(test_app::help)
 
   message(STATUS "[INFO] Tests enabled.")
 endif()
