@@ -43,7 +43,7 @@ void run(const std::string &command);
 /**
  * @brief Open the default web browser with the specified path or URL.
  *
- * The risk of shell injection attacks is minimal because the filepath is provided by the "pathmaster" library, which was also created by me (see "app.cpp").
+ * The risk of shell injection attacks is minimal because the filepath is created by me using OS-specific APIs (see "paths.cpp").
  *
  * @param filepath Path to the file to open in the web browser (e.g., "~/data.html").
  *
