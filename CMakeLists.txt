@@ -71,7 +71,6 @@ include_directories(${CMAKE_BINARY_DIR}/generated)
 add_library(${PROJECT_NAME}-lib STATIC
   src/app.cpp
   src/core/args.cpp
-  src/core/html.cpp
   src/core/io.cpp
   src/core/shell.cpp
   src/modules/disk.cpp
