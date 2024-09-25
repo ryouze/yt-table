@@ -210,7 +210,7 @@ std::vector<Channel> load(const std::filesystem::path &input_path,
         return channels;
     }
     catch (const std::exception &e) {
-        throw std::runtime_error(fmt::format("Error processing file '{}': {}", input_path.string(), e.what()));
+        throw std::runtime_error(fmt::format("Failed to load file '{}': {}", input_path.string(), e.what()));
     }
 }
 
