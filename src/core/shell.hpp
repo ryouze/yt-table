@@ -12,24 +12,6 @@
 namespace core::shell {
 
 /**
- * @brief Base class for exceptions raised by the shell.
- */
-class ShellError : public std::runtime_error {
-  public:
-    explicit ShellError(const std::string &message)
-        : std::runtime_error(message) {}
-};
-
-/**
- * @brief Base class for exceptions raised by the command builder.
- */
-class PathError : public std::runtime_error {
-  public:
-    explicit PathError(const std::string &message)
-        : std::runtime_error(message) {}
-};
-
-/**
  * @brief Build the command to open the filepath in the default web browser (or any other default application for a given file type).
  *
  * The following commands are returned:
@@ -41,7 +23,7 @@ class PathError : public std::runtime_error {
  *
  * @return Command to open the default web browser (e.g., open "~/data.html").
  *
- * @throws PathError If failed to build the command or the platform is not supported.
+ * @throws std::runtime_error If failed to build the command or the platform is not supported.
  */
 [[nodiscard]] std::string build_command(const std::string &filepath);
 
@@ -50,11 +32,11 @@ class PathError : public std::runtime_error {
  *
  * @param command Shell command to run (e.g., "ls -l").
  *
- * @throws ShellError if failed to run the command.
+ * @throws std::runtime_error if failed to run the command.
  *
  * @note This function is very dangerous and should be used with caution. In this program, it is used to open the HTML table in the default web browser.
  *
- * @details Since the web browser command is not a major function of the application, I decided to use the standard library to run shell commands. If the application were to have more shell commands (especially user-provided ones), I would consider using a safer, OS-specific API. Otherwise, I'd rather avoid them, unless absolutely necessary, as seen with my "pathmaster" library.
+ * @details Since the web browser command is not a major function of the application, I decided to use the standard library to run shell commands. If the application were to have more shell commands (especially user-provided ones), I would consider using a safer, OS-specific API. Otherwise, I'd rather avoid them, unless absolutely necessary.
  */
 void run(const std::string &command);
 
@@ -66,8 +48,6 @@ void run(const std::string &command);
  * @param filepath Path to the file to open in the web browser (e.g., "~/data.html").
  *
  * @note Under the hood, this runs a platform-specific shell command to open the web browser.
- *
- * @details Since the web browser command is not a major function of the application, I decided to use the standard library to run shell commands. If the application were to have more shell commands (especially user-provided ones), I would consider using a safer, OS-specific API. Otherwise, I'd rather avoid them, unless absolutely necessary, as seen with my "pathmaster" library.
  */
 void open_web_browser(const std::string &filepath);
 

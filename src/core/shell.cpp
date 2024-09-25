@@ -11,7 +11,9 @@
 
 #include "shell.hpp"
 
-std::string core::shell::build_command(const std::string &filepath)
+namespace core::shell {
+
+std::string build_command(const std::string &filepath)
 {
     try {
         // Get the command to open the default web browser based on the platform
@@ -31,20 +33,22 @@ std::string core::shell::build_command(const std::string &filepath)
         return fmt::format("{} \"{}\"", open_command, filepath);
     }
     catch (const std::exception &e) {
-        throw core::shell::PathError(fmt::format("Failed to build command: {}", e.what()));
+        throw std::runtime_error(fmt::format("Failed to build command: {}", e.what()));
     }
 }
 
-void core::shell::run(const std::string &command)
+void run(const std::string &command)
 {
     // Execute the command and check for non-zero exit status
     if (std::system(command.c_str()) != 0) {
-        throw core::shell::ShellError(fmt::format("Failed to run the command: {}", command));
+        throw std::runtime_error(fmt::format("Failed to run the command: {}", command));
     }
 }
 
-void core::shell::open_web_browser(const std::string &filepath)
+void open_web_browser(const std::string &filepath)
 {
     // Run the command (this will open the web browser with the HTML table)
-    core::shell::run(core::shell::build_command(filepath));
+    run(build_command(filepath));
 }
+
+}  // namespace core::shell
