@@ -6,8 +6,9 @@
 
 #pragma once
 
-#include <string>  // for std::string
-#include <vector>  // for std::vector
+#include <filesystem>  // for std::filesystem
+#include <string>      // for std::string
+#include <vector>      // for std::vector
 
 #include "core/io.hpp"
 

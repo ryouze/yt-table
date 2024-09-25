@@ -2,9 +2,11 @@
  * @file disk.cpp
  */
 
-#include <algorithm>  // for std::find_if
-#include <string>     // for std::string
-#include <vector>     // for std::vector
+#include <algorithm>   // for std::find_if
+#include <filesystem>  // for std::filesystem
+#include <stdexcept>   // for std::runtime_error
+#include <string>      // for std::string
+#include <vector>      // for std::vector
 
 #include "core/io.hpp"
 #include "disk.hpp"

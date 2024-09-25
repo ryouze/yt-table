@@ -6,8 +6,7 @@
 
 #pragma once
 
-#include <stdexcept>  // for std::runtime_error
-#include <string>     // for std::string
+#include <string>  // for std::string
 
 namespace core::shell {
 

@@ -5,7 +5,7 @@
 #include <algorithm>    // for std::sort
 #include <exception>    // for std::exception
 #include <filesystem>   // for std::filesystem
-#include <fstream>      // for std::ifstream
+#include <fstream>      // for std::ifstream, std::ofstream
 #include <regex>        // for std::regex, std::smatch, std::sregex_iterator
 #include <sstream>      // for std::ostringstream
 #include <stdexcept>    // for std::runtime_error

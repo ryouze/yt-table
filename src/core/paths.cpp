@@ -2,12 +2,11 @@
  * @file paths.cpp
  */
 
-#include <array>         // for std::array
-#include <cstdlib>       // for std::getenv
-#include <filesystem>    // for std::filesystem::path
-#include <stdexcept>     // for std::runtime_error
-#include <string>        // for std::string
-#include <system_error>  // for std::system_error
+#include <array>       // for std::array
+#include <cstdlib>     // for std::getenv
+#include <exception>   // for std::exception
+#include <filesystem>  // for std::filesystem
+#include <stdexcept>   // for std::runtime_error
 #if defined(_WIN32)
 #define WIN32_LEAN_AND_MEAN  // Exclude rarely-used stuff from Windows headers
 #include <Shlobj.h>          // for SHGetFolderPathW
