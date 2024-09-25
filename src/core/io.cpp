@@ -210,7 +210,7 @@ std::vector<Channel> load(const std::filesystem::path &input_path,
         return channels;
     }
     catch (const std::exception &e) {
-        throw std::runtime_error(fmt::format("Error processing file '{}': {}", input_path, e.what()));
+        throw std::runtime_error(fmt::format("Error processing file '{}': {}", input_path.string(), e.what()));
     }
 }
 
@@ -243,7 +243,7 @@ void save(const std::filesystem::path &output_path,
         file << html_template_end;
     }
     catch (const std::exception &e) {
-        throw std::runtime_error(fmt::format("Failed to save file '{}': {}", output_path, e.what()));
+        throw std::runtime_error(fmt::format("Failed to save file '{}': {}", output_path.string(), e.what()));
     }
 }
 
