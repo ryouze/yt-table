@@ -6,36 +6,38 @@
 #include <string>     // for std::string
 #include <vector>     // for std::vector
 
-#include "core/html.hpp"
+#include "core/io.hpp"
 #include "disk.hpp"
 
-modules::disk::Table::Table(const std::string &file_path)
-    : filepath_(file_path)
+namespace modules::disk {
+
+Table::Table(const std::filesystem::path &filepath)
+    : filepath_(filepath)
 {
     try {
 
         // Load the HTML table from disk
         // This will backup the file before loading, so we can safely overwrite if we want to
-        this->channels_ = core::html::load(this->filepath_);
+        this->channels_ = core::io::load(this->filepath_);
     }
-    catch (const core::html::FileNotFoundError &) {
-        // If file doesn't exist, write an empty table to disk
-        core::html::save(this->filepath_, this->channels_);
+    catch (const std::runtime_error &) {
+        // If file doesn't exist or other error occurred, write an empty table to disk
+        core::io::save(this->filepath_, this->channels_);
     }
 }
 
-void modules::disk::Table::add(const core::html::Channel &channel)
+void Table::add(const core::io::Channel &channel)
 {
     this->channels_.emplace_back(channel);
     // Save to disk
     this->save();
 }
 
-bool modules::disk::Table::remove(const std::string &name)
+bool Table::remove(const std::string &name)
 {
     // Find the channel by name
     const auto it = std::find_if(this->channels_.cbegin(), this->channels_.cend(),
-                                 [&name](const core::html::Channel &channel) {
+                                 [&name](const core::io::Channel &channel) {
                                      return channel.name == name;
                                  });
 
@@ -49,17 +51,20 @@ bool modules::disk::Table::remove(const std::string &name)
     return false;
 }
 
-const std::string &modules::disk::Table::get_filepath() const
+const std::filesystem::path &Table::get_filepath() const
 {
     return this->filepath_;
 }
 
-const std::vector<core::html::Channel> &modules::disk::Table::get_channels() const
+const std::vector<core::io::Channel> &Table::get_channels() const
 {
     return this->channels_;
 }
 
-void modules::disk::Table::save()
+void Table::save()
 {
-    core::html::save(this->filepath_, this->channels_);
+    // Write current state to disk
+    core::io::save(this->filepath_, this->channels_);
 }
+
+}  // namespace modules::disk

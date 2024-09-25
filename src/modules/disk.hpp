@@ -9,7 +9,7 @@
 #include <string>  // for std::string
 #include <vector>  // for std::vector
 
-#include "core/html.hpp"
+#include "core/io.hpp"
 
 namespace modules::disk {
 
@@ -27,9 +27,9 @@ class Table final {
      *
      * The underlying parser will backup the file before loading. If the file doesn't exist, an empty table will be written to disk.
      *
-     * @param file_path Path to the HTML table that contains YouTube subscriptions which shall be loaded (e.g., "~/data.html").
+     * @param filepath Path to the HTML table that contains YouTube subscriptions which shall be loaded (e.g., "~/data.html").
      */
-    explicit Table(const std::string &file_path);
+    explicit Table(const std::filesystem::path &filepath);
 
     /**
      * @brief Add a YouTube to the table. The full channel object must be provided.
@@ -38,7 +38,7 @@ class Table final {
      *
      * @param channel Channel to add (e.g., "{name: "Noriyaro", link: "https://www.youtube.com/@noriyaro/videos", description: "JP Drifting"}").
      */
-    void add(const core::html::Channel &channel);
+    void add(const core::io::Channel &channel);
 
     /**
      * @brief Remove a YouTube channel from the table by name.
@@ -56,25 +56,25 @@ class Table final {
      *
      * @return Path to the HTML table that contains YouTube subscriptions.
      */
-    [[nodiscard]] const std::string &get_filepath() const;
+    [[nodiscard]] const std::filesystem::path &get_filepath() const;
 
     /**
      * @brief Get the channels.
      *
      * @return Vector of YouTube channels.
      */
-    [[nodiscard]] const std::vector<core::html::Channel> &get_channels() const;
+    [[nodiscard]] const std::vector<core::io::Channel> &get_channels() const;
 
   private:
     /**
      * @brief Path to the HTML table that contains YouTube subscriptions.
      */
-    const std::string filepath_;
+    const std::filesystem::path filepath_;
 
     /**
      * @brief Vector of YouTube channels.
      */
-    std::vector<core::html::Channel> channels_;
+    std::vector<core::io::Channel> channels_;
 
     /**
      * @brief Save the YouTube channels to an HTML file on disk.
