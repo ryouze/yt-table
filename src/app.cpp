@@ -7,14 +7,16 @@
 #include <vector>    // for std::vector
 
 #include <fmt/core.h>
-#include <pathmaster/pathmaster.hpp>
 
 #include "app.hpp"
 #include "core/args.hpp"
-#include "core/html.hpp"
+#include "core/io.hpp"
+#include "core/paths.hpp"
 #include "core/shell.hpp"
 #include "modules/disk.hpp"
 #include "version.hpp"
+
+namespace app {
 
 namespace {
 
@@ -25,7 +27,7 @@ namespace {
  *
  * @param channels Vector of YouTube channels.
  */
-void print_channel_names(const std::vector<core::html::Channel> &channels)
+void print_channel_names(const std::vector<core::io::Channel> &channels)
 {
     fmt::print("\nChannels ({}):\n", channels.size());
     for (const auto &channel : channels) {
@@ -59,17 +61,13 @@ void print_channel_names(const std::vector<core::html::Channel> &channels)
 
 }  // namespace
 
-void app::run(const int argc,
-              char **argv)
+void run()
 {
-    // Process command-line arguments, but do not store them, as the class does nothing (this might throw an ArgsError)
-    core::args::Args(argc, argv);
-
-    // Load the HTML table from disk using the cross-platform pathmaster library
-    modules::disk::Table table((pathmaster::get_resources_directory("yt-table") / "subscriptions.html").string());
+    // Load the HTML table from disk
+    modules::disk::Table table(core::paths::get_resources_directory("yt-table") / "subscriptions.html");
 
     // Print the path to the loaded table
-    fmt::print("Loaded: {}\n", table.get_filepath());
+    fmt::print("Loaded: {}\n", table.get_filepath().string());
 
     // Define the prompt
     const std::string prompt = "[yt-table] $ ";
@@ -106,7 +104,7 @@ void app::run(const int argc,
         }
         // Open the HTML table in a web browser
         else if (input == "open") {
-            fmt::print("Opening: {}\n", table.get_filepath());
+            fmt::print("Opening: {}\n", table.get_filepath().string());
             core::shell::open_web_browser(table.get_filepath());
         }
         // Add a new channel
@@ -115,7 +113,7 @@ void app::run(const int argc,
             const std::string description = get_input("Enter description: ");
             const std::string link = get_input("Enter link: ");
 
-            table.add(core::html::Channel{name, link, description});
+            table.add(core::io::Channel{name, link, description});
 
             fmt::print("Channel '{}' added\n", name);
         }
@@ -137,3 +135,5 @@ void app::run(const int argc,
         }
     }
 }
+
+}  // namespace app
