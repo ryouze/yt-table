@@ -9,8 +9,10 @@
 #include "args.hpp"
 #include "version.hpp"
 
-core::args::Args::Args(const int argc,
-                       char **argv)
+namespace core::args {
+
+Args::Args(const int argc,
+           char **argv)
 {
     // If no arguments, do nothing
     if (argc == 1) {
@@ -45,3 +47,5 @@ core::args::Args::Args(const int argc,
         }
     }
 }
+
+}  // namespace core::args

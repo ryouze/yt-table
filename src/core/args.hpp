@@ -13,8 +13,12 @@ namespace core::args {
 
 /**
  * @brief Exceptions raised by command-line argument parser when help or version is requested. The requested message is returned.
+ *
+ * This class extends "std::runtime_error".
+ *
+ * @note This class is marked as `final` to prevent inheritance.
  */
-class ArgsMessage : public std::runtime_error {
+class ArgsMessage final : public std::runtime_error {
   public:
     explicit ArgsMessage(const std::string &message)
         : std::runtime_error(message) {}
@@ -22,8 +26,12 @@ class ArgsMessage : public std::runtime_error {
 
 /**
  * @brief Exceptions raised by command-line argument parser when an error occurs. A help message with usage, description, and examples is included.
+ *
+ * This class extends "std::runtime_error".
+ *
+ * @note This class is marked as `final` to prevent inheritance.
  */
-class ArgsError : public std::runtime_error {
+class ArgsError final : public std::runtime_error {
   public:
     explicit ArgsError(const std::string &message)
         : std::runtime_error(message) {}
