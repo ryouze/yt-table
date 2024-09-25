@@ -105,7 +105,7 @@ void run()
         // Open the HTML table in a web browser
         else if (input == "open") {
             fmt::print("Opening: {}\n", table.get_filepath().string());
-            core::shell::open_web_browser(table.get_filepath());
+            core::shell::open_web_browser(table.get_filepath().string());
         }
         // Add a new channel
         else if (input == "add") {
