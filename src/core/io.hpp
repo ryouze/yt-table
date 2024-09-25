@@ -10,8 +10,6 @@
 #include <string>      // for std::string
 #include <vector>      // for std::vector
 
-#include <fmt/core.h>
-
 namespace core::io {
 
 /**

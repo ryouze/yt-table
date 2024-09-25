@@ -9,7 +9,6 @@
 #include <fmt/core.h>
 
 #include "app.hpp"
-#include "core/args.hpp"
 #include "core/io.hpp"
 #include "core/paths.hpp"
 #include "core/shell.hpp"
