@@ -20,8 +20,7 @@ namespace core::args {
  */
 class ArgsMessage final : public std::runtime_error {
   public:
-    explicit ArgsMessage(const std::string &message)
-        : std::runtime_error(message) {}
+    using std::runtime_error::runtime_error;
 };
 
 /**
@@ -33,8 +32,7 @@ class ArgsMessage final : public std::runtime_error {
  */
 class ArgsError final : public std::runtime_error {
   public:
-    explicit ArgsError(const std::string &message)
-        : std::runtime_error(message) {}
+    using std::runtime_error::runtime_error;
 };
 
 /**
