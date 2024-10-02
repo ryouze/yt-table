@@ -1,5 +1,8 @@
 # yt-table
 
+[![CI](https://github.com/ryouze/yt-table/actions/workflows/ci.yml/badge.svg)](https://github.com/ryouze/yt-table/actions/workflows/ci.yml)
+[![Release](https://github.com/ryouze/yt-table/actions/workflows/release.yml/badge.svg)](https://github.com/ryouze/yt-table/actions/workflows/release.yml)
+
 yt-table is a cross-platform CLI tool for managing YouTube subscriptions locally through a shell-like interface.
 
 
@@ -64,7 +67,7 @@ Automated testing is also performed on the latest versions of macOS, GNU/Linux, 
 
 ## Pre-built Binaries
 
-Pre-built binaries are available for macOS (ARM64), GNU/Linux (x86_64), and Windows (x86_64). You can download the latest versions from the [Releases](../../releases) page.
+Pre-built binaries are available for macOS (ARM64), GNU/Linux (x86_64), and Windows (x86_64). You can download the latest version from the [Releases](../../releases) page.
 
 
 ## Requirements
