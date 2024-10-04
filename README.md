@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/ryouze/yt-table/actions/workflows/ci.yml/badge.svg)](https://github.com/ryouze/yt-table/actions/workflows/ci.yml)
 [![Release](https://github.com/ryouze/yt-table/actions/workflows/release.yml/badge.svg)](https://github.com/ryouze/yt-table/actions/workflows/release.yml)
+![Release version](https://img.shields.io/github/v/release/ryouze/yt-table)
 
 yt-table is a cross-platform CLI tool for managing YouTube subscriptions locally through a shell-like interface.
 
