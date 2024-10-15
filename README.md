@@ -73,7 +73,8 @@ Pre-built binaries are available for macOS (ARM64), GNU/Linux (x86_64), and Wind
 To remove macOS quarantine, use the following command:
 
 ```sh
-sudo xattr -d com.apple.quarantine <FILE>
+xattr -d com.apple.quarantine yt-table-macos-arm64
+chmod +x yt-table-macos-arm64
 ```
 
 
