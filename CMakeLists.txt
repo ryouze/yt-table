@@ -84,6 +84,7 @@ add_library(${PROJECT_NAME}-lib STATIC
   src/core/io.cpp
   src/core/paths.cpp
   src/core/shell.cpp
+  src/core/strings.cpp
   src/modules/disk.cpp
 )
 
@@ -126,6 +127,7 @@ if(BUILD_TESTS)
   register_test(test_args::invalid)
   register_test(test_html::save_load)
   register_test(test_shell::build_command)
+  register_test(test_strings::trim_whitespace)
   register_test(test_disk::save_load)
 
   message(STATUS "[INFO] Tests enabled.")

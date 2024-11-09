@@ -12,6 +12,7 @@
 #include "core/io.hpp"
 #include "core/paths.hpp"
 #include "core/shell.hpp"
+#include "core/strings.hpp"
 #include "modules/disk.hpp"
 #include "version.hpp"
 
@@ -54,6 +55,7 @@ void print_channel_names(const std::vector<core::io::Channel> &channels)
     do {
         fmt::print("{}", prompt);
         std::getline(std::cin, input);
+        input = core::strings::trim_whitespace(input);
     } while (input.empty());
     return input;
 }

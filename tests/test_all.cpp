@@ -18,6 +18,7 @@
 #include "core/io.hpp"
 #include "core/paths.hpp"
 #include "core/shell.hpp"
+#include "core/strings.hpp"
 #include "modules/disk.hpp"
 
 #include "helpers.hpp"
@@ -38,6 +39,10 @@ namespace test_html {
 namespace test_shell {
 [[nodiscard]] int build_command();
 }  // namespace test_shell
+
+namespace test_strings {
+[[nodiscard]] int trim_whitespace();
+}  // namespace test_strings
 
 namespace test_disk {
 [[nodiscard]] int save_load();
@@ -85,6 +90,7 @@ int main(int argc,
         {"test_args::invalid", test_args::invalid},
         {"test_html::save_load", test_html::save_load},
         {"test_shell::build_command", test_shell::build_command},
+        {"test_strings::trim_whitespace", test_strings::trim_whitespace},
         {"test_disk::save_load", test_disk::save_load},
     };
 
@@ -277,6 +283,23 @@ int test_shell::build_command()
     }
     catch (const std::exception &e) {
         fmt::print(stderr, "core::shell::impl::build_command() failed: {}\n", e.what());
+        return EXIT_FAILURE;
+    }
+}
+
+int test_strings::trim_whitespace()
+{
+    try {
+        const std::string test_string = "  hello  ";
+        const std::string trimmed_string = core::strings::trim_whitespace(test_string);
+        if (trimmed_string != "hello") {
+            throw std::runtime_error("Trimmed string does not match expected value");
+        }
+        fmt::print("core::strings::trim_whitespace() passed: trimmed whitespace from '{}'.\n", test_string);
+        return EXIT_SUCCESS;
+    }
+    catch (const std::exception &e) {
+        fmt::print(stderr, "core::strings::trim_whitespace() failed: {}\n", e.what());
         return EXIT_FAILURE;
     }
 }
