@@ -47,7 +47,9 @@ void print_channel_names(const std::vector<core::io::Channel> &channels)
  *
  * @param prompt Prompt to display before the input (e.g., "Name: ").
  *
- * @return String containing the user input.
+ * @return Trimmed string containing the user input.
+ *
+ * @note The function will continuously prompt until a non-empty string is entered, trimming leading and trailing whitespace before checking for emptiness.
  */
 [[nodiscard]] std::string get_input(const std::string &prompt)
 {
