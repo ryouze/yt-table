@@ -178,7 +178,7 @@ The following commands are available:
 - `remove`: Remove a channel (name).
 - `exit`: Exit the program.
 
-The changes are saved automatically and a backup file is created in the same directory as the `subscriptions.html` file.
+The changes are saved automatically and a backup file is created in the same directory as the `subscriptions.html` file. Any leading or trailing whitespace in the input is removed.
 
 The program does not support history using the up/down arrow keys or other full terminal features. It is designed to be as simple as possible, because I primarily interact with the HTML table itself.
 
