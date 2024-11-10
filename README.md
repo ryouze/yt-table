@@ -77,6 +77,8 @@ xattr -d com.apple.quarantine yt-table-macos-arm64
 chmod +x yt-table-macos-arm64
 ```
 
+On Windows, the OS might complain about the binary being unsigned. You can bypass this by clicking on "More info" and then "Run anyway".
+
 
 ## Requirements
 
