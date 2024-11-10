@@ -12,10 +12,8 @@ function(fetch_and_link_external_dependencies target)
   # SYSTEM is used to prevent applying compile flags to the dependencies
   FetchContent_Declare(
     fmt
-    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG        11.0.2
-    GIT_PROGRESS   TRUE
-    GIT_SHALLOW    TRUE
+    URL https://github.com/fmtlib/fmt/releases/download/11.0.2/fmt-11.0.2.zip
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
     EXCLUDE_FROM_ALL
     SYSTEM
   )
