@@ -2,9 +2,10 @@
  * @file app.cpp
  */
 
-#include <iostream>  // for std::cin
-#include <string>    // for std::string, std::getline
-#include <vector>    // for std::vector
+#include <iostream>   // for std::cin
+#include <stdexcept>  // for std::runtime_error
+#include <string>     // for std::string, std::getline
+#include <vector>     // for std::vector
 
 #include <fmt/core.h>
 
@@ -49,17 +50,31 @@ void print_channel_names(const std::vector<core::io::Channel> &channels)
  *
  * @return Trimmed string containing the user input.
  *
+ * @throws std::runtime_error If an I/O error occurs or EOF is reached.
+ *
  * @note The function will continuously prompt until a non-empty string is entered, trimming leading and trailing whitespace before checking for emptiness.
  */
 [[nodiscard]] std::string get_input(const std::string &prompt)
 {
     std::string input;
-    do {
+    while (true) {
         fmt::print("{}", prompt);
-        std::getline(std::cin, input);
+        if (!std::getline(std::cin, input)) {
+            // Add a newline to separate the error message from the prompt
+            fmt::print("\n");
+            if (std::cin.eof()) {
+                throw std::runtime_error("EOF while waiting for input");
+            }
+            else {
+                throw std::runtime_error("I/O error while waiting for input");
+            }
+        }
+        // Trim whitespace and check if the input is non-empty
         input = core::strings::trim_whitespace(input);
-    } while (input.empty());
-    return input;
+        if (!input.empty()) {
+            return input;
+        }
+    }
 }
 
 }  // namespace
