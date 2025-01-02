@@ -13,6 +13,10 @@
 #include <vector>         // for std::vector
 
 #include <fmt/core.h>
+#if defined(_WIN32)
+#define WIN32_LEAN_AND_MEAN  // Exclude rarely-used stuff from Windows headers
+#include <windows.h>         // for SetConsoleCP, SetConsoleOutputCP, CP_UTF8
+#endif
 
 #include "core/args.hpp"
 #include "core/io.hpp"
@@ -59,11 +63,9 @@ namespace test_disk {
 int main(int argc,
          char **argv)
 {
-#if defined(_WIN32)
-    // Setup UTF-8 input/output on Windows (does nothing on other platforms)
-    if (const auto e = core::io::setup_utf8_console(); e.has_value()) {
-        fmt::print(stderr, "Warning: {}\n", *e);
-    }
+#if defined(_WIN32)  // Setup UTF-8 input/output
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
 #endif
 
     // Define the formatted help message
