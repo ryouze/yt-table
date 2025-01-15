@@ -122,7 +122,8 @@ Follow these steps to build the project:
 
 After successful compilation, you can run the program using `./yt-table`. However, it is highly recommended to install the program, so that it can be run from any directory. Refer to the [Install](#install) section below.
 
-**Note:** The mode is set to `Release` by default. To build in `Debug` mode, use `cmake .. -DCMAKE_BUILD_TYPE=Debug`.
+> [!TIP]
+> The mode is set to `Release` by default. To build in `Debug` mode, use `cmake .. -DCMAKE_BUILD_TYPE=Debug`.
 
 
 ## Install
@@ -146,7 +147,8 @@ To run the program, use the following command:
 yt-table
 ```
 
-**Note:** On Windows, a modern terminal emulator like [Windows Terminal](https://github.com/microsoft/terminal) is recommended. The default Command Prompt will display UTF-8 characters correctly, but UTF-8 input is not supported.
+> [!TIP]
+> On Windows, a modern terminal emulator like [Windows Terminal](https://github.com/microsoft/terminal) is recommended. The default Command Prompt will display UTF-8 characters correctly, but UTF-8 input is not supported.
 
 On startup, the program will create an empty `subscriptions.html` file in a platform-specific directory. Then, a shell-like interface will appear, allowing you to interact with the file.
 
